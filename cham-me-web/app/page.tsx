@@ -84,10 +84,10 @@ export default async function Home() {
                 <a 
                   href={product.shopee_link} 
                   target="_blank" 
-                  className="py-3 text-[10px] font-bold uppercase tracking-widest border border-zinc-200 text-zinc-600 hover:bg-[#ee4d2d] hover:text-white hover:border-[#ee4d2d] transition-all text-center"
-                >
+                  className="py-3 text-[10px] font-bold uppercase tracking-widest bg-[#ee4d2d] text-white hover:bg-[#d73211] transition-all text-center"
+                  >
                   Shopee
-                </a>
+                  </a>
                 <a 
                   href={product.tiktok_link} 
                   target="_blank" 
