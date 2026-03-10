@@ -109,7 +109,7 @@ export default async function Home() {
             <div key={item} className="relative aspect-square overflow-hidden bg-zinc-200 group cursor-pointer">
               {/* Huy up các ảnh 'social-1.jpg', 'social-2.jpg'... lên R2 */}
               <Image 
-                src={`${R2_URL}/social-${item}.svg`} 
+                src={`${R2_URL}/social/${fileName}`} 
                 alt={`Instagram ${item}`} 
                 fill 
                 className="object-cover group-hover:scale-105 transition-transform duration-500" 
