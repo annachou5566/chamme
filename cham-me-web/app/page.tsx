@@ -26,26 +26,26 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-white text-zinc-900 selection:bg-zinc-900 selection:text-white">
       
-      {/* 1. HERO SECTION - Tối giản & Tập trung */}
-      <section className="relative w-full h-[85vh] flex flex-col items-center justify-center bg-zinc-950 text-white overflow-hidden">
+      {/* 1. HERO SECTION - Đã chỉnh lại để banner dài và không mất góc */}
+      <section className="relative w-full aspect-video md:aspect-[21/9] flex flex-col items-center justify-center bg-zinc-950 text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image 
             src={`${R2_URL}/brand/hero-main.svg`} 
             alt="Chấm Mê Concept" 
             fill 
-            className="object-cover opacity-50" 
+            className="object-cover opacity-50" // Giữ object-cover để ảnh luôn đầy khung nhưng khung giờ đã dài hơn
             priority 
             unoptimized
           />
         </div>
         <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
-          <p className="text-zinc-400 font-medium tracking-[0.3em] text-xs mb-6 uppercase">
+          <p className="text-zinc-400 font-medium tracking-[0.3em] text-[10px] mb-4 uppercase">
             Nước chấm thủ công
           </p>
-          <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-10 leading-tight">
+          <h1 className="text-3xl md:text-5xl font-light tracking-tight mb-8 leading-tight">
             Gói trọn hương vị <br/> từ nguyên liệu tự nhiên
           </h1>
-          <a href="#shop" className="inline-block border border-white px-10 py-3 text-[10px] tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-500">
+          <a href="#shop" className="inline-block border border-white px-8 py-3 text-[10px] tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-500">
             Xem sản phẩm
           </a>
         </div>
