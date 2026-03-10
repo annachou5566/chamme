@@ -99,25 +99,26 @@ export default async function Home() {
       </section>
 
       {/* 4. INSTAGRAM GRID */}
-      <section className="py-24 px-4 bg-zinc-50">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-black uppercase tracking-tighter mb-2">Kết Nối Cùng Chúng Tôi</h2>
-          <p className="text-amber-600 font-bold tracking-widest uppercase text-sm">@cham.me.food</p>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 max-w-7xl mx-auto">
-          {[1, 2, 3, 4].map((item) => (
-            <div key={item} className="relative aspect-square overflow-hidden bg-zinc-200 group cursor-pointer">
-              {/* Huy up các ảnh 'social-1.jpg', 'social-2.jpg'... lên R2 */}
-              <Image 
-                src={`${R2_URL}/social/${fileName}`} 
-                alt={`Instagram ${item}`} 
-                fill 
-                className="object-cover group-hover:scale-105 transition-transform duration-500" 
-              />
-            </div>
-          ))}
-        </div>
-      </section>
+<section className="py-24 px-4 bg-zinc-50">
+  <div className="text-center mb-12 text-black">
+    <h2 className="text-4xl font-black uppercase tracking-tighter mb-2">Kết Nối Cùng Chúng Tôi</h2>
+    <p className="text-amber-600 font-bold tracking-widest uppercase text-sm">@cham.me.food</p>
+  </div>
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 max-w-7xl mx-auto">
+    {/* Danh sách tên file Huy đã up vào folder social */}
+    {["social-1.svg", "social-2.jpg", "social-3.jpg", "social-4.jpg"].map((fileName) => (
+      <div key={fileName} className="relative aspect-square overflow-hidden bg-zinc-200 group cursor-pointer">
+        <Image 
+          // Huy thêm chữ /social/ vào giữa link R2 và tên file nhé
+          src={`${R2_URL}/social/${fileName}`} 
+          alt="Instagram Chấm Mê" 
+          fill 
+          className="object-cover group-hover:scale-105 transition-transform duration-500" 
+        />
+      </div>
+    ))}
+  </div>
+</section>
 
     </main>
   );
