@@ -1,3 +1,4 @@
+// next.config.ts
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -5,9 +6,11 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'ufmlcpugjrbxxscetwoc.supabase.co',
-        port: '',
-        pathname: '/storage/v1/object/public/**',
+        hostname: 'ufmlcpugjrbxxscetwoc.supabase.co', 
+      },
+      {
+        protocol: 'https',
+        hostname: 'https://pub-d641df2617f14733a84528eb2171cf3c.r2.dev', 
       },
     ],
   },
