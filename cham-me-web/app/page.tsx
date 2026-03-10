@@ -116,7 +116,7 @@ export default async function Home() {
           <div className="w-full md:w-1/2 max-w-md">
             <span className="text-zinc-400 text-xs tracking-widest uppercase mb-4 block">Về Chấm Mê</span>
             <h2 className="text-3xl md:text-4xl font-light tracking-tight uppercase mb-8 leading-tight text-zinc-900">
-              Sự hài hòa từ bàn tay người làm
+              Hương vị được cân bằng từ căn bếp
             </h2>
             <p className="text-zinc-500 text-sm mb-8 leading-[1.8] font-light">
               Chúng tôi tin rằng nước chấm ngon bắt nguồn từ những nguyên liệu tươi sạch và sự kiên nhẫn. Mỗi chai xốt là sự kết hợp cân bằng giữa vị cay nồng, chua thanh và ngọt dịu, giúp tôn vinh hương vị đặc trưng của từng món ăn trên bàn tiệc gia đình.

@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Chấm Mê | Nước Chấm Thủ Công Thượng Hạng",
-  description: "Tuyệt tác nước chấm thủ công. Bùng nổ vị giác, đa dụng mọi món.",
+  title: "Chấm Mê | Nước Chấm Thủ Công Thơm Ngon",
+  description: "Tâm huyết nước chấm thủ công. Bùng nổ vị giác, đa dụng mọi món.",
 };
 
 export default function RootLayout({
@@ -49,7 +49,7 @@ export default function RootLayout({
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
             <div className="md:col-span-1 text-center md:text-left">
               <h2 className="text-4xl font-black tracking-tighter uppercase mb-6">Chấm Mê</h2>
-              <p className="text-zinc-400 text-sm mb-6">Đỉnh cao hương vị Việt. Đánh thức mọi giác quan trong từng bữa ăn.</p>
+              <p className="text-zinc-400 text-sm mb-6">Hương vị Việt cho bữa ăn thêm ngon.</p>
             </div>
             <div>
               <h3 className="text-xs font-bold uppercase tracking-widest mb-6 border-b border-zinc-800 pb-2">Mua Sắm</h3>
