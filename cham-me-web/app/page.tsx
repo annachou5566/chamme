@@ -30,7 +30,7 @@ export default async function Home() {
       <section className="relative w-full h-[85vh] flex flex-col items-center justify-center bg-zinc-950 text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image 
-            src={`${R2_URL}/hero-main.jpg`} 
+            src={`${R2_URL}/brand/hero-main.svg`} 
             alt="Chấm Mê Concept" 
             fill 
             className="object-cover opacity-50" 
