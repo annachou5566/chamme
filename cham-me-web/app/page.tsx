@@ -1,9 +1,7 @@
 import Image from "next/image";
 import { supabase } from "../lib/supabase";
-
-// --- CHỖ DUY NHẤT HUY CẦN SỬA ---
+export const revalidate = 60;
 const R2_URL = "https://pub-d641df2617f14733a84528eb2171cf3c.r2.dev";
-// -------------------------------
 
 async function getProducts() {
   const { data, error } = await supabase
@@ -104,14 +102,14 @@ export default async function Home() {
       <section className="py-24 px-4 bg-zinc-50">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-black uppercase tracking-tighter mb-2">Kết Nối Cùng Chúng Tôi</h2>
-          <p className="text-amber-600 font-bold tracking-widest uppercase text-sm">@ChamMe.Sauce</p>
+          <p className="text-amber-600 font-bold tracking-widest uppercase text-sm">@cham.me.food</p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 max-w-7xl mx-auto">
           {[1, 2, 3, 4].map((item) => (
             <div key={item} className="relative aspect-square overflow-hidden bg-zinc-200 group cursor-pointer">
               {/* Huy up các ảnh 'social-1.jpg', 'social-2.jpg'... lên R2 */}
               <Image 
-                src={`${R2_URL}/social-${item}.jpg`} 
+                src={`${R2_URL}/social-${item}.svg`} 
                 alt={`Instagram ${item}`} 
                 fill 
                 className="object-cover group-hover:scale-105 transition-transform duration-500" 
