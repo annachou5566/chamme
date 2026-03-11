@@ -10,12 +10,11 @@ export default function ProductGallery({ products }: { products: any[] }) {
   return (
     <>
       {/* 1. KHUNG DANH SÁCH SẢN PHẨM */}
-      {/* Cải tiến: Dùng flex + overflow-x-auto trên mobile, chuyển về grid 3 cột trên máy tính (md) */}
       <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-x-12 md:gap-y-20 overflow-x-auto snap-x snap-mandatory pb-8 md:pb-0 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         
         {products.map((product) => (
-          {/* Trên mobile, mỗi khung chiếm 85% màn hình (w-[85%]). Máy tính tự động chia đều (md:w-auto) */}
           <div key={product.id} className="group flex flex-col flex-none w-[85%] md:w-auto snap-start">
+            {/* Trên mobile, mỗi khung chiếm 85% màn hình. Máy tính tự động chia đều */}
             
             {/* Vùng bấm vào để mở chi tiết */}
             <div 
@@ -83,7 +82,7 @@ export default function ProductGallery({ products }: { products: any[] }) {
               {new Intl.NumberFormat("vi-VN").format(selectedProduct.price)} ₫
             </p>
 
-            {/* Đoạn mô tả dài từ Supabase (giữ nguyên xuống dòng) */}
+            {/* Đoạn mô tả dài từ Supabase */}
             <div className="text-sm font-light leading-[1.8] text-zinc-600 whitespace-pre-line mb-12">
               {selectedProduct.description}
             </div>
