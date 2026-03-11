@@ -27,16 +27,46 @@ export default function ProductGallery({ products }: { products: any[] }) {
     setActiveIndex(index);
   };
 
+  const scrollPrev = () => {
+    if (!carouselRef.current) return;
+    const itemWidth = carouselRef.current.scrollWidth / products.length;
+    carouselRef.current.scrollBy({ left: -itemWidth, behavior: "smooth" });
+  };
+
+  const scrollNext = () => {
+    if (!carouselRef.current) return;
+    const itemWidth = carouselRef.current.scrollWidth / products.length;
+    carouselRef.current.scrollBy({ left: itemWidth, behavior: "smooth" });
+  };
+
   return (
     <>
-      <div className="relative">
+      <div className="relative group">
+        <button 
+          onClick={scrollPrev} 
+          className="hidden md:flex absolute -left-6 top-1/3 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.08)] items-center justify-center text-zinc-400 hover:text-black hover:scale-110 transition-all opacity-0 group-hover:opacity-100"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button 
+          onClick={scrollNext} 
+          className="hidden md:flex absolute -right-6 top-1/3 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.08)] items-center justify-center text-zinc-400 hover:text-black hover:scale-110 transition-all opacity-0 group-hover:opacity-100"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
         <div 
           ref={carouselRef}
           onScroll={handleScroll}
           className="flex gap-6 md:gap-12 overflow-x-auto snap-x snap-mandatory pb-4 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
           {products.map((product) => (
-            <div key={product.id} className="group flex flex-col flex-none w-[85%] md:w-[35%] lg:w-[30%] snap-start">
+            <div key={product.id} className="group/item flex flex-col flex-none w-[85%] md:w-[35%] lg:w-[30%] snap-start">
               <div 
                 className="cursor-pointer" 
                 onClick={() => setSelectedProduct(product)}
@@ -47,10 +77,10 @@ export default function ProductGallery({ products }: { products: any[] }) {
                     alt={product.name} 
                     fill 
                     unoptimized
-                    className="object-contain p-10 transform group-hover:scale-105 transition-transform duration-700" 
+                    className="object-contain p-10 transform group-hover/item:scale-105 transition-transform duration-700" 
                   />
                 </div>
-                <h3 className="text-lg font-semibold uppercase tracking-tight mb-2 group-hover:text-amber-600 transition-colors">
+                <h3 className="text-lg font-semibold uppercase tracking-tight mb-2 group-hover/item:text-amber-600 transition-colors">
                   {product.name}
                 </h3>
                 <p className="text-zinc-500 text-sm mb-6 leading-relaxed line-clamp-2 font-light">
