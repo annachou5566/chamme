@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { supabase } from "../lib/supabase";
 
-// Tự động cập nhật dữ liệu sau mỗi 60 giây
 export const revalidate = 60;
 
 const R2_URL = "https://pub-d641df2617f14733a84528eb2171cf3c.r2.dev";
@@ -30,7 +29,7 @@ export default async function Home() {
       <section className="relative w-full aspect-video md:aspect-[21/9] flex flex-col items-center justify-center bg-zinc-950 text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image 
-            src={`${R2_URL}/brand/hero-main.svg`} 
+            src={`${R2_URL}/brand/hero-main.webp`}
             alt="Chấm Mê Concept" 
             fill 
             className="object-cover opacity-50" // Giữ object-cover để ảnh luôn đầy khung nhưng khung giờ đã dài hơn
@@ -106,7 +105,7 @@ export default async function Home() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-20">
           <div className="relative w-full md:w-1/2 aspect-square md:aspect-[4/5]">
              <Image 
-              src={`${R2_URL}/lifestyle/lifestyle-kitchen.svg`} 
+              src={`${R2_URL}/lifestyle/lifestyle-kitchen.webp`} 
               alt="Quy trình thực hiện" 
               fill 
               unoptimized
@@ -133,7 +132,7 @@ export default async function Home() {
           <p className="text-zinc-400 text-xs tracking-widest uppercase">@cham.me.food</p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto">
-          {["social-1.svg", "social-2.svg", "social-3.svg", "social-4.svg"].map((fileName) => (
+          {["social-1.webp", "social-2.webp", "social-3.webp", "social-4.webp"].map((fileName) => (
             <div key={fileName} className="relative aspect-square overflow-hidden bg-zinc-50 transition-opacity hover:opacity-90">
               <Image 
                 src={`${R2_URL}/social/${fileName}`} 
