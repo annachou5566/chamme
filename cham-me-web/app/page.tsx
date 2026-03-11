@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { supabase } from "../lib/supabase";
 import ProductGallery from "./ProductGallery";
+
 export const revalidate = 60;
 
 const R2_URL = "https://pub-d641df2617f14733a84528eb2171cf3c.r2.dev";
