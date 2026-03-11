@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { supabase } from "../lib/supabase";
-
+import ProductGallery from "./ProductGallery";
 export const revalidate = 60;
 
 const R2_URL = "https://pub-d641df2617f14733a84528eb2171cf3c.r2.dev";
@@ -60,44 +60,8 @@ export default async function Home() {
           <div className="h-px flex-grow bg-zinc-100 hidden md:block mx-8 mb-4"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-20">
-          {products.map((product) => (
-            <div key={product.id} className="group flex flex-col">
-              <div className="relative aspect-[4/5] bg-[#f9f9f9] overflow-hidden mb-8 transition-all duration-700">
-                <Image 
-                  src={product.image_url} 
-                  alt={product.name} 
-                  fill 
-                  unoptimized
-                  className="object-contain p-10 transform group-hover:scale-105 transition-transform duration-700" 
-                />
-              </div>
-              <h3 className="text-lg font-semibold uppercase tracking-tight mb-2">{product.name}</h3>
-              <p className="text-zinc-500 text-sm mb-6 leading-relaxed line-clamp-2 font-light">
-                {product.tagline}
-              </p>
-              <div className="text-sm font-medium mb-8">
-                {new Intl.NumberFormat("vi-VN").format(product.price)} ₫
-              </div>
-              <div className="mt-auto grid grid-cols-2 gap-2">
-                <a 
-                  href={product.shopee_link} 
-                  target="_blank" 
-                  className="py-3 text-[10px] font-bold uppercase tracking-widest bg-[#ee4d2d] text-white hover:bg-[#d73211] transition-all text-center"
-                  >
-                  Shopee
-                  </a>
-                <a 
-                  href={product.tiktok_link} 
-                  target="_blank" 
-                  className="py-3 text-[10px] font-bold uppercase tracking-widest bg-zinc-900 text-white hover:bg-black transition-all text-center"
-                >
-                  TikTok
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
+        <ProductGallery products={products} />
+
       </section>
 
       {/* 3. LIFESTYLE SECTION - Tinh tế */}
