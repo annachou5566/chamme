@@ -1,13 +1,26 @@
 "use client";
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function ProductGallery({ products }: { products: any[] }) {
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
+  
+  // Thêm State để lưu ảnh nào đang được phóng to trong Khung trượt
+  const [activeDrawerImage, setActiveDrawerImage] = useState<string>("");
+  
   const [activeIndex, setActiveIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  const closeDrawer = () => setSelectedProduct(null);
+  // Hàm mở Drawer và set ảnh mặc định là ảnh đại diện
+  const openDrawer = (product: any) => {
+    setSelectedProduct(product);
+    setActiveDrawerImage(product.image_url);
+  };
+
+  const closeDrawer = () => {
+    setSelectedProduct(null);
+    setActiveDrawerImage("");
+  };
 
   const handleScroll = () => {
     if (!carouselRef.current) return;
@@ -39,6 +52,15 @@ export default function ProductGallery({ products }: { products: any[] }) {
     carouselRef.current.scrollBy({ left: itemWidth, behavior: "smooth" });
   };
 
+  // Gom ảnh chính và ảnh phụ lại thành 1 mảng để hiển thị
+  const getFullGallery = (product: any) => {
+    if (!product) return [];
+    const mainImage = product.image_url;
+    // Nếu có cột gallery và có dữ liệu thì nối vào, không thì chỉ trả về ảnh chính
+    const extraImages = Array.isArray(product.gallery) ? product.gallery : [];
+    return [mainImage, ...extraImages];
+  };
+
   return (
     <>
       <div className="relative group">
@@ -46,18 +68,14 @@ export default function ProductGallery({ products }: { products: any[] }) {
           onClick={scrollPrev} 
           className="hidden md:flex absolute -left-6 top-1/3 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.08)] items-center justify-center text-zinc-400 hover:text-black hover:scale-110 transition-all opacity-0 group-hover:opacity-100"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
-          </svg>
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" /></svg>
         </button>
 
         <button 
           onClick={scrollNext} 
           className="hidden md:flex absolute -right-6 top-1/3 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.08)] items-center justify-center text-zinc-400 hover:text-black hover:scale-110 transition-all opacity-0 group-hover:opacity-100"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
-          </svg>
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" /></svg>
         </button>
 
         <div 
@@ -67,10 +85,7 @@ export default function ProductGallery({ products }: { products: any[] }) {
         >
           {products.map((product) => (
             <div key={product.id} className="group/item flex flex-col flex-none w-[85%] md:w-[35%] lg:w-[30%] snap-start">
-              <div 
-                className="cursor-pointer" 
-                onClick={() => setSelectedProduct(product)}
-              >
+              <div className="cursor-pointer" onClick={() => openDrawer(product)}>
                 <div className="relative aspect-[4/5] bg-[#f9f9f9] overflow-hidden mb-8 transition-all duration-700">
                   <Image 
                     src={product.image_url} 
@@ -92,12 +107,8 @@ export default function ProductGallery({ products }: { products: any[] }) {
               </div>
 
               <div className="mt-auto grid grid-cols-2 gap-2">
-                <a href={product.shopee_link} target="_blank" className="py-3 text-[10px] font-bold uppercase tracking-widest bg-[#ee4d2d] text-white hover:bg-[#d73211] transition-all text-center">
-                  Shopee
-                </a>
-                <a href={product.tiktok_link} target="_blank" className="py-3 text-[10px] font-bold uppercase tracking-widest bg-zinc-900 text-white hover:bg-black transition-all text-center">
-                  TikTok
-                </a>
+                <a href={product.shopee_link} target="_blank" className="py-3 text-[10px] font-bold uppercase tracking-widest bg-[#ee4d2d] text-white hover:bg-[#d73211] transition-all text-center">Shopee</a>
+                <a href={product.tiktok_link} target="_blank" className="py-3 text-[10px] font-bold uppercase tracking-widest bg-zinc-900 text-white hover:bg-black transition-all text-center">TikTok</a>
               </div>
             </div>
           ))}
@@ -109,9 +120,7 @@ export default function ProductGallery({ products }: { products: any[] }) {
               key={index}
               onClick={() => scrollToProduct(index)}
               className={`transition-all duration-500 rounded-full ${
-                activeIndex === index 
-                  ? "w-8 h-1.5 bg-zinc-900" 
-                  : "w-1.5 h-1.5 bg-zinc-300 hover:bg-zinc-400"
+                activeIndex === index ? "w-8 h-1.5 bg-zinc-900" : "w-1.5 h-1.5 bg-zinc-300 hover:bg-zinc-400"
               }`}
               aria-label={`Xem sản phẩm ${index + 1}`}
             />
@@ -119,25 +128,39 @@ export default function ProductGallery({ products }: { products: any[] }) {
         </div>
       </div>
 
+      {/* --- HIỆU ỨNG KHUNG TRƯỢT --- */}
       {selectedProduct && (
-        <div 
-          className="fixed inset-0 bg-black/40 z-40 transition-opacity backdrop-blur-sm" 
-          onClick={closeDrawer} 
-        />
+        <div className="fixed inset-0 bg-black/40 z-40 transition-opacity backdrop-blur-sm" onClick={closeDrawer} />
       )}
 
       <div className={`fixed inset-y-0 right-0 z-50 w-full md:w-[480px] bg-white shadow-2xl transform transition-transform duration-500 ease-in-out ${selectedProduct ? "translate-x-0" : "translate-x-full"} overflow-y-auto`}>
         {selectedProduct && (
           <div className="p-8 md:p-12 relative flex flex-col min-h-full">
-            <button onClick={closeDrawer} className="absolute top-6 right-6 text-zinc-400 hover:text-black text-xs uppercase tracking-widest z-10 p-2">
-              ✕ Đóng
-            </button>
+            <button onClick={closeDrawer} className="absolute top-6 right-6 text-zinc-400 hover:text-black text-xs uppercase tracking-widest z-10 p-2">✕ Đóng</button>
 
-            <div className="relative w-full aspect-square bg-[#f9f9f9] mb-8 mt-4">
-              <Image src={selectedProduct.image_url} alt={selectedProduct.name} fill unoptimized className="object-contain p-8" />
+            {/* Ảnh chính to bự (Lấy theo activeDrawerImage) */}
+            <div className="relative w-full aspect-square bg-[#f9f9f9] mt-4 mb-4 transition-all duration-300">
+              <Image src={activeDrawerImage} alt={selectedProduct.name} fill unoptimized className="object-contain p-8" />
             </div>
 
-            <h2 className="text-2xl font-light uppercase tracking-tight mb-2">{selectedProduct.name}</h2>
+            {/* Danh sách ảnh thu nhỏ (Thumbnails) - Chỉ hiện nếu sản phẩm có nhiều hơn 1 ảnh */}
+            {getFullGallery(selectedProduct).length > 1 && (
+              <div className="flex gap-3 overflow-x-auto pb-2 mb-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                {getFullGallery(selectedProduct).map((imgUrl, idx) => (
+                  <button 
+                    key={idx} 
+                    onClick={() => setActiveDrawerImage(imgUrl)}
+                    className={`relative w-20 h-20 flex-shrink-0 bg-[#f9f9f9] border-2 transition-all ${
+                      activeDrawerImage === imgUrl ? "border-zinc-900" : "border-transparent opacity-50 hover:opacity-100"
+                    }`}
+                  >
+                    <Image src={imgUrl} alt="Thumbnail" fill unoptimized className="object-contain p-2" />
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <h2 className="text-2xl font-light uppercase tracking-tight mb-2 mt-4">{selectedProduct.name}</h2>
             <p className="text-amber-600 text-xs font-bold tracking-widest uppercase mb-8 pb-8 border-b border-zinc-100">
               {new Intl.NumberFormat("vi-VN").format(selectedProduct.price)} ₫
             </p>
